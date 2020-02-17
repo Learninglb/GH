@@ -17,3 +17,4 @@ Traceback (most recent call last):
   File "C:\GH\microblog\app\routes.py", line 27, in explore
     posts = Post.query.order_by(Post.timestamp()).all()
 TypeError: 'InstrumentedAttribute' object is not callable
+2020-02-17 11:01:55,441 INFO: Microblog startup [in C:\GH\microblog\app\__init__.py:41]
