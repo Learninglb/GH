@@ -56,3 +56,4 @@ Traceback (most recent call last):
   File "C:\GH\microblog\app\routes.py", line 38, in explore
     'index.html', title='Explore', posts=posts.items, next_url=next_url, prev_url=prev_url)
 NameError: name 'next_url' is not defined
+2020-02-17 12:44:04,251 INFO: Microblog startup [in C:\GH\microblog\app\__init__.py:41]
