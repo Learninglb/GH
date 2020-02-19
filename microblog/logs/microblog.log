@@ -61,3 +61,5 @@ NameError: name 'next_url' is not defined
 2020-02-18 14:12:44,271 INFO: Microblog startup [in C:\GH\microblog\app\__init__.py:42]
 2020-02-18 14:19:48,888 INFO: Microblog startup [in C:\GH\microblog\app\__init__.py:42]
 2020-02-18 14:39:27,116 INFO: Microblog startup [in C:\GH\microblog\app\__init__.py:42]
+2020-02-19 11:42:22,915 INFO: Microblog startup [in C:\GH\microblog\app\__init__.py:42]
+2020-02-19 11:46:48,860 INFO: Microblog startup [in C:\GH\microblog\app\__init__.py:42]
