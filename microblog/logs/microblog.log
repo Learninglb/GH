@@ -80,3 +80,4 @@ Traceback (most recent call last):
     {% block app_content %}{% endblock %}
 jinja2.exceptions.TemplateAssertionError: block 'app_content' defined twice
 2020-02-25 14:31:10,205 INFO: Microblog startup [in C:\GH\microblog\app\__init__.py:47]
+2020-02-25 15:04:00,542 INFO: Microblog startup [in C:\GH\microblog\app\__init__.py:49]
