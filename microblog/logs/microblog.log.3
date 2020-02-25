@@ -1,105 +1,4 @@
-2020-02-17 10:59:59,503 ERROR: Exception on /explore [GET] [in c:\v_playground\lib\site-packages\flask\app.py:1891]
-Traceback (most recent call last):
-  File "c:\v_playground\lib\site-packages\flask\app.py", line 2446, in wsgi_app
-    response = self.full_dispatch_request()
-  File "c:\v_playground\lib\site-packages\flask\app.py", line 1951, in full_dispatch_request
-    rv = self.handle_user_exception(e)
-  File "c:\v_playground\lib\site-packages\flask\app.py", line 1820, in handle_user_exception
-    reraise(exc_type, exc_value, tb)
-  File "c:\v_playground\lib\site-packages\flask\_compat.py", line 39, in reraise
-    raise value
-  File "c:\v_playground\lib\site-packages\flask\app.py", line 1949, in full_dispatch_request
-    rv = self.dispatch_request()
-  File "c:\v_playground\lib\site-packages\flask\app.py", line 1935, in dispatch_request
-    return self.view_functions[rule.endpoint](**req.view_args)
-  File "c:\v_playground\lib\site-packages\flask_login\utils.py", line 272, in decorated_view
-    return func(*args, **kwargs)
-  File "C:\GH\microblog\app\routes.py", line 27, in explore
-    posts = Post.query.order_by(Post.timestamp()).all()
-TypeError: 'InstrumentedAttribute' object is not callable
-2020-02-17 11:01:55,441 INFO: Microblog startup [in C:\GH\microblog\app\__init__.py:41]
-2020-02-17 11:12:50,261 INFO: Microblog startup [in C:\GH\microblog\app\__init__.py:41]
-2020-02-17 11:12:55,716 ERROR: Exception on /index [GET] [in c:\v_playground\lib\site-packages\flask\app.py:1891]
-Traceback (most recent call last):
-  File "c:\v_playground\lib\site-packages\flask\app.py", line 2446, in wsgi_app
-    response = self.full_dispatch_request()
-  File "c:\v_playground\lib\site-packages\flask\app.py", line 1951, in full_dispatch_request
-    rv = self.handle_user_exception(e)
-  File "c:\v_playground\lib\site-packages\flask\app.py", line 1820, in handle_user_exception
-    reraise(exc_type, exc_value, tb)
-  File "c:\v_playground\lib\site-packages\flask\_compat.py", line 39, in reraise
-    raise value
-  File "c:\v_playground\lib\site-packages\flask\app.py", line 1949, in full_dispatch_request
-    rv = self.dispatch_request()
-  File "c:\v_playground\lib\site-packages\flask\app.py", line 1935, in dispatch_request
-    return self.view_functions[rule.endpoint](**req.view_args)
-  File "c:\v_playground\lib\site-packages\flask_login\utils.py", line 272, in decorated_view
-    return func(*args, **kwargs)
-  File "C:\GH\microblog\app\routes.py", line 22, in index
-    posts = current_user.followed_posts().paginate(page, app.config['POSTS-PER-PAGE'], False)
-KeyError: 'POSTS-PER-PAGE'
-2020-02-17 11:12:59,850 ERROR: Exception on / [GET] [in c:\v_playground\lib\site-packages\flask\app.py:1891]
-Traceback (most recent call last):
-  File "c:\v_playground\lib\site-packages\flask\app.py", line 2446, in wsgi_app
-    response = self.full_dispatch_request()
-  File "c:\v_playground\lib\site-packages\flask\app.py", line 1951, in full_dispatch_request
-    rv = self.handle_user_exception(e)
-  File "c:\v_playground\lib\site-packages\flask\app.py", line 1820, in handle_user_exception
-    reraise(exc_type, exc_value, tb)
-  File "c:\v_playground\lib\site-packages\flask\_compat.py", line 39, in reraise
-    raise value
-  File "c:\v_playground\lib\site-packages\flask\app.py", line 1949, in full_dispatch_request
-    rv = self.dispatch_request()
-  File "c:\v_playground\lib\site-packages\flask\app.py", line 1935, in dispatch_request
-    return self.view_functions[rule.endpoint](**req.view_args)
-  File "c:\v_playground\lib\site-packages\flask_login\utils.py", line 272, in decorated_view
-    return func(*args, **kwargs)
-  File "C:\GH\microblog\app\routes.py", line 22, in index
-    posts = current_user.followed_posts().paginate(page, app.config['POSTS-PER-PAGE'], False)
-KeyError: 'POSTS-PER-PAGE'
-2020-02-17 11:13:05,236 ERROR: Exception on / [GET] [in c:\v_playground\lib\site-packages\flask\app.py:1891]
-Traceback (most recent call last):
-  File "c:\v_playground\lib\site-packages\flask\app.py", line 2446, in wsgi_app
-    response = self.full_dispatch_request()
-  File "c:\v_playground\lib\site-packages\flask\app.py", line 1951, in full_dispatch_request
-    rv = self.handle_user_exception(e)
-  File "c:\v_playground\lib\site-packages\flask\app.py", line 1820, in handle_user_exception
-    reraise(exc_type, exc_value, tb)
-  File "c:\v_playground\lib\site-packages\flask\_compat.py", line 39, in reraise
-    raise value
-  File "c:\v_playground\lib\site-packages\flask\app.py", line 1949, in full_dispatch_request
-    rv = self.dispatch_request()
-  File "c:\v_playground\lib\site-packages\flask\app.py", line 1935, in dispatch_request
-    return self.view_functions[rule.endpoint](**req.view_args)
-  File "c:\v_playground\lib\site-packages\flask_login\utils.py", line 272, in decorated_view
-    return func(*args, **kwargs)
-  File "C:\GH\microblog\app\routes.py", line 22, in index
-    posts = current_user.followed_posts().paginate(page, app.config['POSTS-PER-PAGE'], False)
-KeyError: 'POSTS-PER-PAGE'
-2020-02-17 11:13:56,835 INFO: Microblog startup [in C:\GH\microblog\app\__init__.py:41]
-2020-02-17 11:13:59,318 ERROR: Exception on / [GET] [in c:\v_playground\lib\site-packages\flask\app.py:1891]
-Traceback (most recent call last):
-  File "c:\v_playground\lib\site-packages\flask\app.py", line 2446, in wsgi_app
-    response = self.full_dispatch_request()
-  File "c:\v_playground\lib\site-packages\flask\app.py", line 1951, in full_dispatch_request
-    rv = self.handle_user_exception(e)
-  File "c:\v_playground\lib\site-packages\flask\app.py", line 1820, in handle_user_exception
-    reraise(exc_type, exc_value, tb)
-  File "c:\v_playground\lib\site-packages\flask\_compat.py", line 39, in reraise
-    raise value
-  File "c:\v_playground\lib\site-packages\flask\app.py", line 1949, in full_dispatch_request
-    rv = self.dispatch_request()
-  File "c:\v_playground\lib\site-packages\flask\app.py", line 1935, in dispatch_request
-    return self.view_functions[rule.endpoint](**req.view_args)
-  File "c:\v_playground\lib\site-packages\flask_login\utils.py", line 272, in decorated_view
-    return func(*args, **kwargs)
-  File "C:\GH\microblog\app\routes.py", line 23, in index
-    page, app.config['POSTS-PER-PAGE'], False)
-KeyError: 'POSTS-PER-PAGE'
-2020-02-17 11:15:15,229 INFO: Microblog startup [in C:\GH\microblog\app\__init__.py:41]
-2020-02-17 11:52:28,757 INFO: Microblog startup [in C:\GH\microblog\app\__init__.py:41]
-2020-02-17 12:07:49,817 INFO: Microblog startup [in C:\GH\microblog\app\__init__.py:41]
-2020-02-17 12:09:16,711 ERROR: Exception on /explore [GET] [in c:\v_playground\lib\site-packages\flask\app.py:1891]
+2020-02-17 12:09:26,116 ERROR: Exception on /explore [GET] [in c:\v_playground\lib\site-packages\flask\app.py:1891]
 Traceback (most recent call last):
   File "c:\v_playground\lib\site-packages\flask\app.py", line 2446, in wsgi_app
     response = self.full_dispatch_request()
@@ -118,7 +17,8 @@ Traceback (most recent call last):
   File "C:\GH\microblog\app\routes.py", line 36, in explore
     return render_template('index.html', title='Explore', posts=posts.items, next_url=next_url, prev_url=prev_url)
 NameError: name 'next_url' is not defined
-2020-02-17 12:09:20,916 ERROR: Exception on /explore [GET] [in c:\v_playground\lib\site-packages\flask\app.py:1891]
+2020-02-17 12:12:20,558 INFO: Microblog startup [in C:\GH\microblog\app\__init__.py:41]
+2020-02-17 12:12:28,545 ERROR: Exception on /explore [GET] [in c:\v_playground\lib\site-packages\flask\app.py:1891]
 Traceback (most recent call last):
   File "c:\v_playground\lib\site-packages\flask\app.py", line 2446, in wsgi_app
     response = self.full_dispatch_request()
@@ -134,6 +34,76 @@ Traceback (most recent call last):
     return self.view_functions[rule.endpoint](**req.view_args)
   File "c:\v_playground\lib\site-packages\flask_login\utils.py", line 272, in decorated_view
     return func(*args, **kwargs)
-  File "C:\GH\microblog\app\routes.py", line 36, in explore
-    return render_template('index.html', title='Explore', posts=posts.items, next_url=next_url, prev_url=prev_url)
+  File "C:\GH\microblog\app\routes.py", line 38, in explore
+    'index.html', title='Explore', posts=posts.items, next_url=next_url, prev_url=prev_url)
 NameError: name 'next_url' is not defined
+2020-02-17 12:12:33,635 ERROR: Exception on /explore [GET] [in c:\v_playground\lib\site-packages\flask\app.py:1891]
+Traceback (most recent call last):
+  File "c:\v_playground\lib\site-packages\flask\app.py", line 2446, in wsgi_app
+    response = self.full_dispatch_request()
+  File "c:\v_playground\lib\site-packages\flask\app.py", line 1951, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "c:\v_playground\lib\site-packages\flask\app.py", line 1820, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "c:\v_playground\lib\site-packages\flask\_compat.py", line 39, in reraise
+    raise value
+  File "c:\v_playground\lib\site-packages\flask\app.py", line 1949, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "c:\v_playground\lib\site-packages\flask\app.py", line 1935, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "c:\v_playground\lib\site-packages\flask_login\utils.py", line 272, in decorated_view
+    return func(*args, **kwargs)
+  File "C:\GH\microblog\app\routes.py", line 38, in explore
+    'index.html', title='Explore', posts=posts.items, next_url=next_url, prev_url=prev_url)
+NameError: name 'next_url' is not defined
+2020-02-17 12:44:04,251 INFO: Microblog startup [in C:\GH\microblog\app\__init__.py:41]
+2020-02-18 14:03:46,882 INFO: Microblog startup [in C:\GH\microblog\app\__init__.py:42]
+2020-02-18 14:12:44,271 INFO: Microblog startup [in C:\GH\microblog\app\__init__.py:42]
+2020-02-18 14:19:48,888 INFO: Microblog startup [in C:\GH\microblog\app\__init__.py:42]
+2020-02-18 14:39:27,116 INFO: Microblog startup [in C:\GH\microblog\app\__init__.py:42]
+2020-02-19 11:42:22,915 INFO: Microblog startup [in C:\GH\microblog\app\__init__.py:42]
+2020-02-19 11:46:48,860 INFO: Microblog startup [in C:\GH\microblog\app\__init__.py:42]
+2020-02-19 11:49:58,848 INFO: Microblog startup [in C:\GH\microblog\app\__init__.py:42]
+2020-02-19 11:51:38,404 ERROR: Exception on /login [GET] [in c:\v_playground\lib\site-packages\flask\app.py:1891]
+Traceback (most recent call last):
+  File "c:\v_playground\lib\site-packages\flask\app.py", line 2446, in wsgi_app
+    response = self.full_dispatch_request()
+  File "c:\v_playground\lib\site-packages\flask\app.py", line 1951, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "c:\v_playground\lib\site-packages\flask\app.py", line 1820, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "c:\v_playground\lib\site-packages\flask\_compat.py", line 39, in reraise
+    raise value
+  File "c:\v_playground\lib\site-packages\flask\app.py", line 1949, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "c:\v_playground\lib\site-packages\flask\app.py", line 1935, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "C:\GH\microblog\app\routes.py", line 69, in login
+    return render_template('login.html', title='Sign In', form=form)
+  File "c:\v_playground\lib\site-packages\flask\templating.py", line 140, in render_template
+    ctx.app,
+  File "c:\v_playground\lib\site-packages\flask\templating.py", line 120, in _render
+    rv = template.render(context)
+  File "c:\v_playground\lib\site-packages\jinja2\environment.py", line 1090, in render
+    self.environment.handle_exception()
+  File "c:\v_playground\lib\site-packages\jinja2\environment.py", line 832, in handle_exception
+    reraise(*rewrite_traceback_stack(source=source))
+  File "c:\v_playground\lib\site-packages\jinja2\_compat.py", line 28, in reraise
+    raise value.with_traceback(tb)
+  File "C:\GH\microblog\app\templates\login.html", line 1, in top-level template code
+    {% extends "base.html" %}
+  File "C:\GH\microblog\app\templates\base.html", line 31, in top-level template code
+    {% block content %}{% endblock %}
+  File "C:\GH\microblog\app\templates\login.html", line 25, in block "content"
+    <p> Forgot Your Password? <a href="{{ url_for('reset_password_request') }}">Click to Reset It</a></p>
+  File "c:\v_playground\lib\site-packages\flask\helpers.py", line 370, in url_for
+    return appctx.app.handle_url_build_error(error, endpoint, values)
+  File "c:\v_playground\lib\site-packages\flask\app.py", line 2215, in handle_url_build_error
+    reraise(exc_type, exc_value, tb)
+  File "c:\v_playground\lib\site-packages\flask\_compat.py", line 39, in reraise
+    raise value
+  File "c:\v_playground\lib\site-packages\flask\helpers.py", line 358, in url_for
+    endpoint, values, method=method, force_external=external
+  File "c:\v_playground\lib\site-packages\werkzeug\routing.py", line 2179, in build
+    raise BuildError(endpoint, values, method, self)
+werkzeug.routing.BuildError: Could not build url for endpoint 'reset_password_request'. Did you mean 'edit_profile' instead?
