@@ -16,17 +16,19 @@ GREY = (153, 153, 153)
 while True:
     vTemp = cp.temperature
     for i in range(10):
-        if vTemp >= 20:
+        if vTemp <= 20:
             cp.pixels.fill(PURPLE)
-        # elif vTemp <= 22:
-        #     cp.pixels.fill(BLUE)
-        # elif vTemp <= 24:
-        #     cp.pixels.fill(GREEN)
-        # elif vTemp <= 26:
-        #     cp.pixels.fill(YELLOW)
-        # elif vTemp >= 27:
-        #     cp.pixels.fill(RED)
         else:
-            cp.pixels.fill(PURPLE)
+            if vTemp <= 22:
+                cp.pixels.fill(BLUE)
+            else:
+                if vTemp <= 24:
+                    cp.pixels.fill(GREEN)
+                else:
+                    if vTemp <= 26:
+                        cp.pixels.fill(YELLOW)
+                    else:
+                        if vTemp > 26:
+                            cp.pixels.fill(RED)
         cp.pixels.show()
         time.sleep(0.05)
