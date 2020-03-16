@@ -1,6 +1,8 @@
 import time
 from adafruit_circuitplayground import cp
 
+TONE_PIANO = False
+
 cp.pixels.auto_write = False
 cp.pixels.brightness = 0.01
 
