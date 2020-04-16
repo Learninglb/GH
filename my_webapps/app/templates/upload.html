@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+    <h1>Upload the file that needs formatted and split:</h1>
+    <hr>
+    <form action ="/upload" method="POST" enctype="multipart/form-data">
+    <div class="form-group">
+        <label>Select file</label>
+        <div class="custom-file">
+          <input type="file" class="custom-file-input" name="text" id="image">
+          <label class="custom-file-label" for="text"></label>
+        </div>
+      </div>
+
+      <button type="submit" class="btn btn-primary">Process file</button>
+      </form>
+{% endblock %}

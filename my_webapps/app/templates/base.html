@@ -1,0 +1,15 @@
+<html>
+    <head>
+        {% if title %}
+        <title>{{title}} - My Apps</title>
+        {% else %}
+        <title>Welcome to My Apps</title>
+        {% endif %}
+    </head>
+    <body>
+        <div> My Apps: <a href="/index">Home</a>
+        <a href='/upload'> Upload</a></div>
+        <hr>
+        {% block content %}{% endblock %}
+    </body>
+</html>
