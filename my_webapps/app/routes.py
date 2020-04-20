@@ -1,5 +1,5 @@
 import os
-from flask import render_template, request, redirect
+from flask import render_template, flash, request, redirect
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileRequired
 from werkzeug.utils import secure_filename
@@ -28,17 +28,15 @@ def upload():
             text = request.files['text']
 
             if text.filename=="":
-                print("File must have a name.")
+                flash("File must have a name.")
                 return redirect(request.url)
             
             if not allowed_file(text.filename):
-                print("That file extension is not allowed.")
+                flash("That file extension is not allowed.")
                 return redirect(request.url)
             else:
                 filename = secure_filename(text.filename)
                 text.save(os.path.join(app.config["FILE_UPLOAD"], filename))
-
-            print("file saved")
-            return redirect(request.url)
+                flash("File saved.")
 
     return render_template('upload.html', title='Upload')
