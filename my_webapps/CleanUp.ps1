@@ -1,1 +1,0 @@
-Get-childItem C:\GH\my_webapps\newLines.csv -file -r | remove-item
