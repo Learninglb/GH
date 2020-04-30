@@ -3,6 +3,8 @@
     "python.linting.enabled": true,
     "cSpell.words": [
         "endblock",
+        "readandcreatefromcsv",
+        "rsplit",
         "wtforms"
     ]
 }

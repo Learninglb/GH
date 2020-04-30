@@ -1,8 +1,8 @@
 import os
 from flask import render_template, flash, request, redirect
+from werkzeug.utils import secure_filename
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileRequired
-from werkzeug.utils import secure_filename
 from app import app
 
 @app.route('/')
@@ -27,10 +27,10 @@ def upload():
         if request.files:
             text = request.files['text']
 
-            if text.filename=="":
+            if text.filename == "":
                 flash("File must have a name.")
                 return redirect(request.url)
-            
+
             if not allowed_file(text.filename):
                 flash("That file extension is not allowed.")
                 return redirect(request.url)
@@ -38,5 +38,6 @@ def upload():
                 filename = secure_filename(text.filename)
                 text.save(os.path.join(app.config["FILE_UPLOAD"], filename))
                 flash("File saved.")
+                ReadAndCreateFromCSV.py(filename)
 
     return render_template('upload.html', title='Upload')
