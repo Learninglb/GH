@@ -5,10 +5,12 @@ from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileRequired
 from app import app
 
+
 @app.route('/')
 @app.route('/index')
 def index():
     return render_template('public/index.html', title='Home')
+
 
 def allowed_file(filename):
     if not "." in filename:
@@ -19,6 +21,12 @@ def allowed_file(filename):
         return True
     else:
         return False
+
+
+@app.route('/jinja')
+def jinja():
+    return render_template('public/jinja.html')
+
 
 @app.route('/upload', methods=["GET", "POST"])
 def upload():
@@ -38,6 +46,6 @@ def upload():
                 filename = secure_filename(text.filename)
                 text.save(os.path.join(app.config["FILE_UPLOAD"], filename))
                 flash("File saved.")
-                #ReadAndCreateFromCSV.py(filename)
+                # ReadAndCreateFromCSV.py(filename)
 
     return render_template('public/upload.html', title='Upload')
