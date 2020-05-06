@@ -1,17 +1,89 @@
-{% extends "public/templates/public_template.html" %}
-
-{% block title %} Jinja {% endblock %}
-
-{% block main %}
+{% extends "public/templates/public_template.html" %} {% block title %} Jinja {% endblock %} {% block main %}
 
 <div class="container">
   <div class="row">
     <div class="column">
       <h1>Jinja Templates</h1>
-        <br>
+      <br />
 
+      <h4>Variables</h4>
+      <hr />
+      <p>Name: {{ my_name }}</p>
 
+      <h4>Looping</h4>
+      <hr />
+      <ul>
+        {% for lang in langs %}
+        <li>{{ lang }}</li>
+        {% endfor %}
+      </ul>
 
+      <h4>Looping with Index</h4>
+      <hr />
+      <ul>
+        {% for lang in langs %}
+        <li>{{ loop.index0 }}: {{ lang }}</li>
+        {% endfor %}
+      </ul>
+
+      <h4>Looping with Dictionary</h4>
+      <hr />
+      <ul>
+        {% for k, v in friends.items() %}
+        <li>{{ k }}: {{ v }}</li>
+        {% endfor %}
+      </ul>
+
+      <h4>Looping with Dictionary Keys</h4>
+      <hr />
+      <ul>
+        {% for k in friends.keys() %}
+        <li>{{ k }}</li>
+        {% endfor %}
+      </ul>
+
+      <h4>Access list member</h4>
+      <hr />
+      <p>{{ langs[0] }}</p>
+
+      <h4>Access dict member</h4>
+      <hr />
+      <p>{{ friends["Ethan"] }}</p>
+ 
+      <h4>Access class attributes</h4>
+      <hr />
+      <p>{{ my_remote.name }}</p>
+      <p>{{ my_remote.url }}</p>
+
+      <h4>Unpack variables</h4>
+      <hr />
+      {% set a, b = colors %}
+      <p>{{ a }}</p>
+      <p>{{ b }}</p>
+
+      <h4>Call a function</h4>
+      <hr />
+      <p> {{ repeat("Flask is Cool  ", 12) }}</p>
+    
+      <h4>Call a class method</h4>
+      <hr />
+      <p> {{ my_remote.clone() }}</p>
+
+      <h4>Conditionals</h4>
+      <hr />
+      {% if cool %}
+      <p> Cool is {{ cool }}</p>
+      {% endif %}
+
+      <h4>Comparisons</h4>
+      <hr />
+      {% if age < 18 %}
+      <p>No entry</p>
+      {% elif age < 40 %}
+      <p>Nearly old enough</p>
+      {% else %}
+      <p>You may enter</p>
+      {% endif %}
 
 
 

@@ -25,8 +25,43 @@ def allowed_file(filename):
 
 @app.route('/jinja')
 def jinja():
-    return render_template('public/jinja.html')
 
+    my_name = "Lori"
+    age = 17
+    langs = ['English', 'German', 'Italian']
+    friends = {
+        'Charles': 44,
+        'Clifford': 44,
+        'Ethan': 14
+    }
+    colors = ('Red', 'Blue')
+    cool = True
+
+    class GitRemote:
+        def __init__(self, name, description, url):
+            self.name = name
+            self.description = description
+            self.url = url
+
+        def pull(self):
+            return f"Pulling repo {self.name}"
+
+        def clone(self):
+            return f"Cloning into {self.url}"
+
+    my_remote = GitRemote(
+        name="Flask Jinja",
+        description="Template design",
+        url="https://github"
+    )
+
+    def repeat(x, qty):
+        return x * qty
+
+    return render_template(
+        'public/jinja.html', my_name=my_name, age=age,
+        langs=langs, friends=friends, colors=colors, cool=cool, GitRemote=GitRemote, 
+        repeat=repeat, my_remote=my_remote)
 
 @app.route('/upload', methods=["GET", "POST"])
 def upload():
