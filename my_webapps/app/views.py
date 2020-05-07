@@ -1,4 +1,5 @@
 import os
+from datetime import datetime
 from flask import render_template, flash, request, redirect
 from werkzeug.utils import secure_filename
 from flask_wtf import FlaskForm
@@ -58,10 +59,16 @@ def jinja():
     def repeat(x, qty):
         return x * qty
 
+    date = datetime.utcnow()
+
+    my_html = "<h1>This is some HTML</h1>"
+
+    suspicious = "<script>alert('NEVER TRUST USER INPUT!')</script>"
+
     return render_template(
         'public/jinja.html', my_name=my_name, age=age,
         langs=langs, friends=friends, colors=colors, cool=cool, GitRemote=GitRemote, 
-        repeat=repeat, my_remote=my_remote)
+        repeat=repeat, my_remote=my_remote, date=date, my_html=my_html, suspicious=suspicious)
 
 @app.route('/upload', methods=["GET", "POST"])
 def upload():
@@ -84,3 +91,8 @@ def upload():
                 # ReadAndCreateFromCSV.py(filename)
 
     return render_template('public/upload.html', title='Upload')
+
+@app.template_filter("clean_date")
+def clean_date(dt):
+    return dt.strftime("%b %d %Y")
+
