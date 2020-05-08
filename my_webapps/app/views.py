@@ -96,3 +96,49 @@ def upload():
 def clean_date(dt):
     return dt.strftime("%b %d %Y")
 
+@app.route('/sign_up', methods=["GET", "POST"])
+def sign_up():
+    if request.method == "POST":
+
+        req = request.form
+
+        missing = list()
+
+        for k, v in req.items():
+            if v == "":
+                missing.append(k)
+
+        if missing:
+            feedback = f"Missing fields for {', '.join(missing)}"
+            return render_template("public/sign_up.html", feedback=feedback)
+
+        return redirect(request.url)
+
+    return render_template("public/sign_up.html")
+    
+users = {
+    "mitsuhiko": {
+        "name": "Armin Ronacher",
+        "bio": "Creatof of the Flask framework",
+        "twitter_handle": "@mitsuhiko"
+    },
+    "gvanrossum": {
+        "name": "Guido Van Rossum",
+        "bio": "Creator of the Python programming language",
+        "twitter_handle": "@gvanrossum"
+    },
+    "elonmusk": {
+        "name": "Elon Musk",
+        "bio": "technology entrepreneur, investor, and engineer, all around strange guy",
+        "twitter_handle": "@elonmusk"
+    }
+}
+
+
+@app.route('/profile/<username>')
+def profile(username):
+    user = None
+
+    if username in users:
+        user = users[username]
+    return render_template('public/profile.html', username=username, user=user)
