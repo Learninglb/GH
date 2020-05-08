@@ -45,6 +45,9 @@
           <li class="nav-item">
             <a class="nav-link" href="/jinja">Jinja Templates</a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/guestbook">GuestBook</a>
+          </li>
         </ul>
       </div>
 
@@ -81,4 +84,5 @@
     <!-- Custom Image -->
     <!--<img style="max-width: 500px;" ; src="{{ url_for('static', filename='img/swirlWindow.png') }}" alt="" />-->
   </body>
+  {% block script %}{% endblock %}
 </html>

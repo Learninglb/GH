@@ -1,6 +1,6 @@
 import os
 from datetime import datetime
-from flask import render_template, flash, request, redirect
+from flask import render_template, flash, request, redirect, jsonify, make_response
 from werkzeug.utils import secure_filename
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileRequired
@@ -142,3 +142,33 @@ def profile(username):
     if username in users:
         user = users[username]
     return render_template('public/profile.html', username=username, user=user)
+
+@app.route("/json", methods=["POST"])
+def json():
+
+    # Validate the request body contains JSON
+    if request.is_json:
+
+        # Parse the JSON into a Python dictionary
+        req = request.get_json()
+
+        response = {
+            "message": "JSON received!",
+            "sender": req.get("name")
+        }
+
+        res = make_response(jsonify(response), 200)
+
+        return res
+
+    else:
+        res = make_response(jsonify({"message":" Request was not JSON"}), 400)
+        return res
+
+@app.route("/guestbook")
+def guestbook():
+    return render_template("public/guestbook.html")
+
+@app.route("/guestbook/create_entry")
+def create_entry():
+    return "Thanks for the entry"
