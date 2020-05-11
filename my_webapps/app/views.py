@@ -183,3 +183,21 @@ def create_entry():
 
     res = make_response(jsonify(req), 200)
     return res
+
+
+@app.route("/query")
+def query():
+    if request.args:
+
+        # We have our query string nicely serialized as a Python dictionary
+        args = request.args
+
+        # We'll create a string to display the parameters & values
+        serialized = ", ".join(f"{k}: {v}" for k, v in request.args.items())
+
+        # Display the query string to the client in a different format
+        return f"(Query) {serialized}", 200
+
+    else:
+
+        return "No query string received", 200
