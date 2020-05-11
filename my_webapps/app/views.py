@@ -2,8 +2,6 @@ import os
 from datetime import datetime
 from flask import render_template, flash, request, redirect, jsonify, make_response
 from werkzeug.utils import secure_filename
-from flask_wtf import FlaskForm
-from flask_wtf.file import FileField, FileRequired
 from app import app
 
 
@@ -67,8 +65,9 @@ def jinja():
 
     return render_template(
         'public/jinja.html', my_name=my_name, age=age,
-        langs=langs, friends=friends, colors=colors, cool=cool, GitRemote=GitRemote, 
+        langs=langs, friends=friends, colors=colors, cool=cool, GitRemote=GitRemote,
         repeat=repeat, my_remote=my_remote, date=date, my_html=my_html, suspicious=suspicious)
+
 
 @app.route('/upload', methods=["GET", "POST"])
 def upload():
@@ -92,9 +91,11 @@ def upload():
 
     return render_template('public/upload.html', title='Upload')
 
+
 @app.template_filter("clean_date")
 def clean_date(dt):
     return dt.strftime("%b %d %Y")
+
 
 @app.route('/sign_up', methods=["GET", "POST"])
 def sign_up():
@@ -115,7 +116,8 @@ def sign_up():
         return redirect(request.url)
 
     return render_template("public/sign_up.html")
-    
+
+
 users = {
     "mitsuhiko": {
         "name": "Armin Ronacher",
@@ -143,6 +145,7 @@ def profile(username):
         user = users[username]
     return render_template('public/profile.html', username=username, user=user)
 
+
 @app.route("/json", methods=["POST"])
 def json():
 
@@ -162,13 +165,21 @@ def json():
         return res
 
     else:
-        res = make_response(jsonify({"message":" Request was not JSON"}), 400)
+        res = make_response(jsonify({"message": " Request was not JSON"}), 400)
         return res
+
 
 @app.route("/guestbook")
 def guestbook():
     return render_template("public/guestbook.html")
 
-@app.route("/guestbook/create_entry")
+
+@app.route("/guestbook/create_entry", methods=["POST"])
 def create_entry():
-    return "Thanks for the entry"
+
+    req = request.get_json()
+
+    print(req)
+
+    res = make_response(jsonify(req), 200)
+    return res
