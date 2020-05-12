@@ -1,6 +1,7 @@
 import os
 from datetime import datetime
 from flask import render_template, flash, request, redirect, jsonify, make_response
+from flask import send_file, safe_join, send_from_directory, abort
 from werkzeug.utils import secure_filename
 from app import app
 
@@ -22,12 +23,31 @@ def allowed_file(filename):
     else:
         return False
 
+def allowed_image(filename):
+    if not "." in filename:
+        return False
+    ext = filename.rsplit(".", 1)[1]
+
+    if ext.upper() in app.config["IMAGES_ALLOWED"]:
+        return True
+    else:
+        return False
+
+def allowed_file_filesize(filesize):
+
+    if int(filesize) <= app.config["MAX_FILE_FILESIZE"]:
+        return True
+    else:
+        return False
+
+
 def allowed_image_filesize(filesize):
 
     if int(filesize) <= app.config["MAX_IMAGE_FILESIZE"]:
         return True
     else:
         return False
+
 
 @app.route('/jinja')
 def jinja():
@@ -76,14 +96,14 @@ def jinja():
         repeat=repeat, my_remote=my_remote, date=date, my_html=my_html, suspicious=suspicious)
 
 
-@app.route('/upload', methods=["GET", "POST"])
-def upload():
+@app.route('/upload_csv', methods=["GET", "POST"])
+def upload_csv():
     if request.method == "POST":
 
         if request.files:
             if "filesize" in request.cookies:
 
-                if not allowed_image_filesize(request.cookies["filesize"]):
+                if not allowed_file_filesize(request.cookies["filesize"]):
                     flash("Filesize exceeded maximum limit")
                     return redirect(request.url)
 
@@ -102,8 +122,36 @@ def upload():
                     flash("File saved.")
                     # ReadAndCreateFromCSV.py(filename)
 
-    return render_template('public/upload.html', title='Upload')
+    return render_template('public/upload_csv.html', title='Upload CSV')
 
+@app.route('/upload_img', methods=["GET", "POST"])
+def upload_img():
+    if request.method == "POST":
+
+        if request.files:
+            if "filesize" in request.cookies:
+
+                if not allowed_image_filesize(request.cookies["filesize"]):
+                    flash("Image size exceeded maximum limit")
+                    return redirect(request.url)                  
+
+                image = request.files['image']
+
+                if image.filename == "":
+                    flash("File must have a name.")
+                    return redirect(request.url)
+
+                if allowed_image(image.filename):
+                    filename = secure_filename(image.filename)
+                    image.save(os.path.join(app.config["IMAGE_UPLOAD"], filename))
+                    flash("Image saved.")
+                    # ReadAndCreateFromCSV.py(filename)
+                else:
+                    flash("That file extension is not allowed.")
+                    return redirect(request.url)
+
+
+    return render_template('public/upload_img.html')
 
 @app.template_filter("clean_date")
 def clean_date(dt):
