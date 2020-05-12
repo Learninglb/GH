@@ -1,0 +1,424 @@
+{
+    "jobs": {
+        "abs_CrewOTHrsUpdate": {
+            "database": "pay", 
+            "includeHeaders": false, 
+            "outputFile": "e:/Import/Oracle/abs_CrewOTHrsUpdate.txt", 
+            "outputFormat": "|", 
+            "query": "SELECT b.PL_EMP_NBR AS EmpNo,nvl(SUM(PL_HRS),0) AS YTD_OT FROM PL_PAYROLL_HIST_PAY a JOIN PL_PAYROLL_HIST b ON a.pl_payroll_hist_key = b.PL_PAYROLL_HIST_KEY WHERE (a.PL_PAY_CD IN ('DT', 'DTTL', 'DT06', 'DT10', 'DT12', 'DTGM', 'DTTF', 'OT', 'OT06', 'OT10', 'OTUB')) AND (a.PL_PAYROLL_HIST_KEY IN  (SELECT PL_PAYROLL_HIST_KEY FROM(PL_PAYROLL_HIST)  WHERE SUBSTR(PL_PAYROLL_PRD_YRMO,1,4) = (to_char(sysdate, 'YYYY')) and GL_JRL_VOID_NBR = 0 and PL_PAY_PRD_END_DT <= (SELECT MIN(PL_PAY_DT) AS Pdate FROM PL_PAY_SCHED_REF WHERE (PL_PAY_DT > SYSDATE - 13)) )) GROUP BY b.PL_EMP_NBR order BY b.PL_EMP_NBR"
+        }, 
+        "abs_pl_ben_hist": {
+            "database": "pay", 
+            "includeHeaders": false, 
+            "outputFile": "e:/Import/Oracle/abs_pl_ben_hist.txt", 
+            "outputFormat": "|", 
+            "query": "SELECT PL_PAYROLL_HIST_KEY, pl_ben_cd, pl_based_on_amt FROM PL_BEN_HIST Where pl_payroll_hist_key > '267596' AND pl_ben_cd in ('401B', '4KNB')"
+        }, 
+        "abs_pl_emp_mstr": {
+            "database": "pay", 
+            "includeHeaders": false, 
+            "outputFile": "e:/Import/Oracle/abs_pl_emp_mstr.txt", 
+            "outputFormat": "|", 
+            "query": "SELECT mr_acct_nbr, pl_401k_effect_dt, pl_emp_nbr, pl_first_nm, pl_last_nm, pl_middle_nm, pl_pension_nbr, pl_tx_cd, pl_emp_mstr_ctr FROM pl_emp_mstr WHERE pl_tx_cd IS NOT NULL"
+        }, 
+        "abs_pl_emp_payrate": {
+            "database": "pay", 
+            "includeHeaders": false, 
+            "outputFile": "e:/Import/Oracle/abs_pl_emp_payrate.txt", 
+            "outputFormat": "|", 
+            "query": "SELECT pl_emp_nbr, pl_job_class_cd, pl_payrate_amt, pl_effect_dt FROM pl_emp_payrate WHERE pl_effect_dt > TO_DATE('01-06-2014 00:00:01', 'DD-MM-YYYY HH24:MI:SS')"
+        }, 
+        "abs_pl_labor_dist_act": {
+            "database": "pay", 
+            "includeHeaders": false, 
+            "outputFile": "e:/Import/Oracle/abs_pl_labor_dist_act.txt", 
+            "outputFormat": "|", 
+            "query": "select * from pl_labor_dist_act"
+        }, 
+        "abs_pl_labor_hist_dtl_view": {
+            "database": "pay", 
+            "includeHeaders": false, 
+            "outputFile": "e:/Import/Oracle/abs_pl_labor_hist_dtl_view.txt", 
+            "outputFormat": "|", 
+            "query": "SELECT pl_emp_nbr, pl_pay_cd, pl_job_cd, pl_hrs, pl_work_dt, br_tran_dt, pl_payroll_hist_key, pl_labor_dist_act_key FROM pl_labor_hist_dtl_view WHERE pl_payroll_hist_key > '267596'"
+        }, 
+        "abs_pl_payroll_hist": {
+            "database": "pay", 
+            "includeHeaders": false, 
+            "outputFile": "e:/Import/Oracle/abs_pl_payroll_hist.txt", 
+            "outputFormat": "|", 
+            "query": "SELECT pl_emp_nbr, br_tran_dt, pl_payroll_hist_key from pl_payroll_hist WHERE pl_payroll_hist_key > '267596'"
+        }, 
+        "abs_pl_payroll_hist_ben": {
+            "database": "pay", 
+            "includeHeaders": false, 
+            "outputFile": "e:/Import/Oracle/abs_pl_payroll_hist_ben.txt", 
+            "outputFormat": "|", 
+            "query": "SELECT pl_payroll_hist_ben_key, pl_payroll_hist_key, pl_amt, pl_ben_cd FROM pl_payroll_hist_ben WHERE pl_payroll_hist_key > '267596'"
+        }, 
+        "abs_pl_payroll_hist_ded": {
+            "database": "pay", 
+            "includeHeaders": false, 
+            "outputFile": "e:/Import/Oracle/abs_pl_payroll_hist_ded.txt", 
+            "outputFormat": "|", 
+            "query": "SELECT pl_payroll_hist_ded_key, pl_payroll_hist_key, pl_amt, pl_ded_cd FROM pl_payroll_hist_ded WHERE pl_payroll_hist_key > '267596'"
+        }, 
+        "abs_pl_payroll_hist_pay": {
+            "database": "pay", 
+            "includeHeaders": false, 
+            "outputFile": "e:/Import/Oracle/abs_pl_payroll_hist_pay.txt", 
+            "outputFormat": "|", 
+            "query": "SELECT pl_payroll_hist_pay_key, pl_pay_cd, pl_hrs, pl_amt, pl_payroll_hist_key, pl_job_cd FROM pl_payroll_hist_pay WHERE pl_payroll_hist_key > '267596'"
+        }, 
+        "abs_pl_payroll_hist_txbl_ben": {
+            "database": "pay", 
+            "includeHeaders": false, 
+            "outputFile": "e:/Import/Oracle/abs_pl_payroll_hist_txbl_ben.txt", 
+            "outputFormat": "|", 
+            "query": "SELECT pl_amt, pl_txbl_ben_cd, pl_pay_prd_cd, pl_payroll_hist_key, pl_payroll_hist_txbl_ben_key FROM pl_payroll_hist_txbl_ben WHERE PL_PAYROLL_HIST_KEY > '267596'"
+        }, 
+        "abs_pl_tm_entry_act": {
+            "database": "pay", 
+            "includeHeaders": false, 
+            "outputFile": "e:/Import/Oracle/abs_pl_tm_entry_act.txt", 
+            "outputFormat": "|", 
+            "query": "select * from pl_tm_entry_act"
+        }, 
+        "abs_wo_acct_ref": {
+            "database": "pay", 
+            "includeHeaders": false, 
+            "outputFile": "e:/Import/Oracle/abs_wo_acct_ref.txt", 
+            "outputFormat": "|", 
+            "query": "select * from wo_acct_ref"
+        }, 
+        "abs_wo_chg_cd_ref": {
+            "database": "pay", 
+            "includeHeaders": false, 
+            "outputFile": "e:/Import/Oracle/abs_wo_chg_cd_ref.txt", 
+            "outputFormat": "|", 
+            "query": "select * from wo_chg_cd_ref"
+        }, 
+        "abs_wo_mstr": {
+            "database": "pay", 
+            "includeHeaders": false, 
+            "outputFile": "e:/Import/Oracle/abs_wo_mstr.txt", 
+            "outputFormat": "|", 
+            "query": "select * from wo_mstr"
+        }, 
+        "abs_wo_tran_act": {
+            "database": "pay", 
+            "includeHeaders": false, 
+            "outputFile": "e:/Import/Oracle/abs_wo_tran_act.txt", 
+            "outputFormat": "|", 
+            "query": "select * from wo_tran_act"
+        }, 
+        "cis_RC_Verify": {
+            "database": "cis", 
+            "includeHeaders": false, 
+            "outputFile": "e:/Import/Oracle/cis_RC_Verify.txt", 
+            "outputFormat": "|", 
+            "query": " select bi_acct, bi_srv_loc_nbr, bi_rate_sched, bi_rev_yrmo, bi_actual_dmd_usage from bi_hist_usage where bi_rev_yrmo > '201512' and bi_rate_sched not in ('103', '106', '106A', '108', '109', '804', '806', '807', '808', '600', '660', '461', '972', 'SFGEN', '3371', '3372', '3373') order by bi_acct, bi_srv_loc_nbr, bi_rev_yrmo desc"
+        }, 
+        "cis_bi_addr_lines_view_1": {
+            "database": "cis", 
+            "includeHeaders": false, 
+            "outputFile": "e:/Import/Oracle/cis_bi_addr_lines_view_1.txt", 
+            "outputFormat": "|", 
+            "query": "select * from bi_addr_lines_view_1"
+        }, 
+        "cis_bi_consumer": {
+            "database": "cis", 
+            "includeHeaders": false, 
+            "outputFile": "e:/Import/Oracle/cis_bi_consumer.txt", 
+            "outputFormat": "|", 
+            "query": "select * from bi_consumer"
+        }, 
+        "cis_bi_consumer_view_1": {
+            "database": "cis", 
+            "includeHeaders": false, 
+            "outputFile": "e:/Import/Oracle/cis_bi_consumer_view_1.txt", 
+            "outputFormat": "|", 
+            "query": "select * from bi_consumer_view_1"
+        }, 
+        "cis_bi_dvc_inv": {
+            "database": "cis", 
+            "includeHeaders": false, 
+            "outputFile": "e:/Import/Oracle/cis_bi_dvc_inv.txt", 
+            "outputFormat": "|", 
+            "query": "select BI_TYPE_SRV_GRP, BI_DVC_TYPE,BI_DVC_STAT_CD,BI_MFG,BI_NBR_OF_SPANS,BI_PO_PUR_DT, BI_PO_NBR, BI_DVC_COST, BI_DVC_INSTL_COST, BI_DVC_INV_CTR, BI_STRG_LOC, BI_DVC_SER_NBR from bi_dvc_inv"
+        }, 
+        "cis_bi_dvc_srv": {
+            "database": "cis", 
+            "includeHeaders": false, 
+            "outputFile": "e:/Import/Oracle/cis_bi_dvc_srv.txt", 
+            "outputFormat": "|", 
+            "query": "select BI_DVC_SER_NBR, BI_SRV_LOC_NBR, BI_DVC_TYPE, BI_ACCT from bi_dvc_srv"
+        }, 
+        "cis_bi_hist_chg": {
+            "database": "cis", 
+            "includeHeaders": false, 
+            "outputFile": "e:/Import/Oracle/cis_bi_hist_chg.txt", 
+            "outputFormat": "|", 
+            "query": "select * from bi_hist_chg"
+        }, 
+        "cis_bi_hist_usage": {
+            "database": "cis", 
+            "includeHeaders": false, 
+            "outputFile": "e:/Import/Oracle/cis_bi_hist_usage.txt", 
+            "outputFormat": "|", 
+            "query": "select * from bi_hist_usage where BI_REV_YRMO >= extract(year from current_timestamp) || lpad(extract(month from current_timestamp) -1,2,0)"
+        }, 
+        "cis_bi_history": {
+            "database": "cis", 
+            "includeHeaders": false, 
+            "outputFile": "e:/Import/Oracle/cis_bi_history.txt", 
+            "outputFormat": "|", 
+            "query": "select * from bi_history "
+        }, 
+        "cis_bi_mtr_inv": {
+            "database": "cis", 
+            "includeHeaders": false, 
+            "outputFile": "e:/Import/Oracle/cis_bi_mtr_inv.txt", 
+            "outputFormat": "|", 
+            "query": "select bi_mtr_nbr, bi_mtr_nbr_sec, bi_mtr_stat_cd, bi_amr_type from bi_mtr_inv"
+        }, 
+        "cis_bi_mtr_srv": {
+            "database": "cis", 
+            "includeHeaders": false, 
+            "outputFile": "e:/Import/Oracle/cis_bi_mtr_srv.txt", 
+            "outputFormat": "|", 
+            "query": "select * from bi_mtr_srv"
+        }, 
+        "cis_bi_personal_view_1_partial": {
+            "database": "cissecure", 
+            "includeHeaders": false, 
+            "outputFile": "e:/Import/Oracle/cis_bi_personal_view_1_partial.txt", 
+            "outputFormat": "|", 
+            "query": "select BI_CUST_NBR, BI_ACCT, BI_ADDR_TYPE, BI_LNAME, BI_FNAME, BI_MNAME, BI_GEN, BI_ADDR1, BI_ADDR2, BI_ADDR3, BI_CITY, BI_ST, BI_ZIP, BI_PLUS_4, BI_PLUS_2, BI_HOME_AREA_CD, BI_HOME_PHN, BI_BUS_AREA_CD, BI_BUS_PHN, BI_MOBL_AREA_CD, BI_MOBL_PHN, BI_INTERNET_ADDR, BI_FORMAT_NAME, BI_SORT_NAME, BI_OUTAGE_E_MAIL, BI_MISC_E_MAIL from bi_personal_view_1"
+        }, 
+        "cis_bi_rdg": {
+            "database": "cis", 
+            "includeHeaders": false, 
+            "outputFile": "e:/Import/Oracle/cis_bi_rdg.txt", 
+            "outputFormat": "|", 
+            "query": "select * from bi_rdg"
+        }, 
+        "cis_bi_so_det": {
+            "database": "cis", 
+            "includeHeaders": false, 
+            "outputFile": "e:/Import/Oracle/cis_bi_so_det.txt", 
+            "outputFormat": "|", 
+            "query": "select * from bi_so_det"
+        }, 
+        "cis_bi_so_master": {
+            "database": "cis", 
+            "includeHeaders": false, 
+            "outputFile": "e:/Import/Oracle/cis_bi_so_master.txt", 
+            "outputFormat": "|", 
+            "query": "select * from bi_so_master"
+        }, 
+        "cis_bi_srv_link": {
+            "database": "cis", 
+            "includeHeaders": false, 
+            "outputFile": "e:/Import/Oracle/cis_bi_srv_link.txt", 
+            "outputFormat": "|", 
+            "query": "select * from bi_srv_link"
+        }, 
+        "cis_bi_srv_loc_hist": {
+            "database": "cis", 
+            "includeHeaders": false, 
+            "outputFile": "e:/Import/Oracle/cis_bi_srv_loc_hist.txt", 
+            "outputFormat": "|", 
+            "query": "select * from bi_srv_loc_hist"
+        }, 
+        "cis_bi_srv_loc_partial": {
+            "database": "cis", 
+            "includeHeaders": false, 
+            "outputFile": "e:/Import/Oracle/cis_bi_srv_loc_partial.txt", 
+            "outputFormat": "|", 
+            "query": "select BI_SRV_LOC_NBR, BI_EMER_ADDR, BI_ADDR1, BI_ADDR2, BI_ADDR3, BI_CITY, BI_ST, BI_ZIP, BI_PLUS_4, BI_PLUS_2, BI_BOARD_DIST_CD, BI_DIST_OFC_CD, BI_CNTY_CD, BI_TOWN_CD, BI_SCHL_DIST_CD, BI_SRV_DESC, BI_OWNER_CUST_NBR, BI_SRV_MAP_LOC, BI_TWNSHP, BI_RANGE, BI_X_COORD, BI_Y_COORD from bi_srv_loc"
+        }, 
+        "cis_bi_srv_stat_ref": {
+            "database": "cis", 
+            "includeHeaders": false, 
+            "outputFile": "e:/Import/Oracle/cis_bi_srv_stat_ref.txt", 
+            "outputFormat": "|", 
+            "query": "select * from bi_srv_stat_ref"
+        }, 
+        "cis_bi_sub_ref": {
+            "database": "cis", 
+            "includeHeaders": false, 
+            "outputFile": "e:/Import/Oracle/cis_bi_sub_ref.txt", 
+            "outputFormat": "|", 
+            "query": "select * from bi_sub_ref where bi_sub_desc not like 'X%'"
+        }, 
+        "cis_bi_tran_srvord": {
+            "database": "cis", 
+            "includeHeaders": false, 
+            "outputFile": "e:/Import/Oracle/cis_bi_tran_srvord.txt", 
+            "outputFormat": "|", 
+            "query": "select * from bi_tran_srvord"
+        }, 
+        "cis_bi_type_service": {
+            "database": "cis", 
+            "includeHeaders": false, 
+            "outputFile": "e:/Import/Oracle/cis_bi_type_service.txt", 
+            "outputFormat": "|", 
+            "query": "select * from bi_type_service"
+        }, 
+        "cis_cc_master": {
+            "database": "cis", 
+            "includeHeaders": false, 
+            "outputFile": "e:/Import/Oracle/cis_cc_master.txt", 
+            "outputFormat": "|", 
+            "query": "select * from cc_master order by bi_cust_nbr"
+        }, 
+        "cis_cc_py_acct": {
+            "database": "cis", 
+            "includeHeaders": false, 
+            "outputFile": "e:/Import/Oracle/cis_cc_py_acct.txt", 
+            "outputFormat": "|", 
+            "query": "select * from cc_py_acct"
+        }, 
+        "cis_cc_py_by_type_partial": {
+            "database": "cis", 
+            "includeHeaders": false, 
+            "outputFile": "e:/Import/Oracle/cis_cc_py_by_type_partial.txt", 
+            "outputFormat": "|", 
+            "query": "select BI_CUST_NBR, CC_YR, CC_UNRET_AMT, CC_ALLOC_AMT from cc_py_by_type order by bi_cust_nbr "
+        }, 
+        "cis_cc_retire_hist": {
+            "database": "cis", 
+            "includeHeaders": false, 
+            "outputFile": "e:/Import/Oracle/cis_cc_retire_hist.txt", 
+            "outputFormat": "|", 
+            "query": "select bi_cust_nbr, cc_retire_dt, cc_retired_amt, cc_unclaimed_amt, cc_bad_debt_recovered, cc_discount_amt, cc_chk_amt, cc_chk_stat, cc_chk_type, cc_chk_nbr, cc_chk_dt from cc_retire_hist"
+        }, 
+        "cis_keep_the_lights_on": {
+            "database": "cis", 
+            "includeHeaders": false, 
+            "outputFile": "e:/Import/Oracle/cis_keep_the_lights_on.txt", 
+            "outputFormat": "|", 
+            "query": "select distinct a.bi_misc_cd, a.bi_misc_amt, a.bi_mtd_seq_nbr, b.bi_upd_dt_tm, b.bi_acct, c.bi_format_name from bi_tran_mcchrg_dtl a join bi_acct_trn_view b on b.bi_mtd_seq_nbr = a.bi_mtd_seq_nbr join bi_consumer_view_1 c on c.bi_vwn_co_acct = b.bi_acct where a.bi_misc_cd = 16"
+        }, 
+        "cis_rate_usage": {
+            "database": "cis", 
+            "includeHeaders": false, 
+            "outputFile": "e:/Import/Oracle/cis_rate_usage.txt", 
+            "outputFormat": "|", 
+            "query": "select distinct a.bi_acct, a.bi_srv_loc_nbr, a.bi_bill_dt_tm, a.bi_actual_dmd_usage, a.bi_mtr_nbr, b.bi_prim_rate_sched from bi_hist_usage a join bi_type_service b on b.bi_acct = a.bi_acct and b.bi_srv_loc_nbr = a.bi_srv_loc_nbr where a.bi_bill_dt_tm > ADD_MONTHS (SYSDATE, -18) order by bi_bill_dt_tm"
+        }, 
+        "cis_systemSurvey_members": {
+            "database": "cis", 
+            "includeHeaders": false, 
+            "outputFile": "e:\\import\\oracle\\cis_systemSurvey_members.txt", 
+            "outputFormat": "|", 
+            "query": "select a.bi_format_name, a.bi_addr1, a.bi_addr2, a.bi_city, a.bi_st, a.bi_zip,  b.bi_srv_loc_nbr, c.bi_addr1 as srv_loc_addy, c.bi_city as srv_loc_city,    a.bi_cyc_cd, b.bi_prim_rate_sched, b.bi_srv_stat_cd from bi_consumer_view_1 a join bi_type_service b   on b.bi_acct = a.BI_VWN_CO_ACCT    join bi_srv_loc c     on c.bi_srv_loc_nbr = b.bi_srv_loc_nbr where b.bi_final_bill_dt_tm is null "
+        }, 
+        "dcsi_amrhourlydata": {
+            "database": "dcsi", 
+            "includeHeaders": false, 
+            "outputFile": "e:/Import/Oracle/dcsi_amrhourlydata.txt", 
+            "outputFormat": "|", 
+            "query": "select distinct * from amrhourlydata where logdate > sysdate -7"
+        }, 
+        "dcsi_config_channel_data": {
+            "database": "dcsi", 
+            "includeHeaders": false, 
+            "outputFile": "e:/Import/Oracle/dcsi_config_channel_data.txt", 
+            "outputFormat": "|", 
+            "query": "select * from config_channel_data"
+        }, 
+        "dcsi_devicerelations": {
+            "database": "dcsi", 
+            "includeHeaders": false, 
+            "outputFile": "e:/Import/Oracle/dcsi_devicerelations.txt", 
+            "outputFormat": "|", 
+            "query": "select * from devicerelations"
+        }, 
+        "dcsi_feeder": {
+            "database": "dcsi", 
+            "includeHeaders": false, 
+            "outputFile": "e:/Import/Oracle/dcsi_feeder.txt", 
+            "outputFormat": "|", 
+            "query": "select * from feeder"
+        }, 
+        "dcsi_hourlyconv": {
+            "database": "dcsi", 
+            "includeHeaders": false, 
+            "outputFile": "e:/Import/Oracle/dcsi_hourlyconv.txt", 
+            "outputFormat": "|", 
+            "query": "select * from hourlyconv"
+        }, 
+        "dcsi_interval_conv_221": {
+            "database": "dcsi", 
+            "includeHeaders": false, 
+            "outputFile": "e:/Import/Oracle/dcsi_interval_conv_221.txt", 
+            "outputFormat": "|", 
+            "query": "select * from interval_conv_221"
+        }, 
+        "dcsi_interval_src_reg": {
+            "database": "dcsi", 
+            "includeHeaders": false, 
+            "outputFile": "e:/Import/Oracle/dcsi_interval_src_reg.txt", 
+            "outputFormat": "|", 
+            "query": "select * from interval_src_reg"
+        }, 
+        "dcsi_meter_blink_counts": {
+            "database": "dcsi", 
+            "includeHeaders": false, 
+            "outputFile": "e:/Import/Oracle/dcsi_meter_blink_counts.txt", 
+            "outputFormat": "|", 
+            "query": "select * from meter_blink_counts where read_time > sysdate - 730 and blink_count > 0"
+        }, 
+        "dcsi_meteraccts": {
+            "database": "dcsi", 
+            "includeHeaders": false, 
+            "outputFile": "e:/Import/Oracle/dcsi_meteraccts.txt", 
+            "outputFormat": "|", 
+            "query": "select * from meteraccts"
+        }, 
+        "dcsi_meteracctsdemand": {
+            "database": "dcsi", 
+            "includeHeaders": false, 
+            "outputFile": "e:/Import/Oracle/dcsi_meteracctsdemand.txt", 
+            "outputFormat": "|", 
+            "query": "select * from meteracctsdemand where meterdemreaddt > trunc(sysdate -2)"
+        }, 
+        "dcsi_meterconv": {
+            "database": "dcsi", 
+            "includeHeaders": false, 
+            "outputFile": "e:/Import/Oracle/dcsi_meterconv.txt", 
+            "outputFormat": "|", 
+            "query": "select * from meterconv"
+        }, 
+        "dcsi_scemain": {
+            "database": "dcsi", 
+            "includeHeaders": false, 
+            "outputFile": "e:/Import/Oracle/dcsi_scemain.txt", 
+            "outputFormat": "|", 
+            "query": "select * from scemain"
+        }, 
+        "dcsi_serialnumber": {
+            "database": "dcsi", 
+            "includeHeaders": false, 
+            "outputFile": "e:/Import/Oracle/dcsi_serialnumber.txt", 
+            "outputFormat": "|", 
+            "query": "select * from serialnumber"
+        }, 
+        "dcsi_tempserialnumber": {
+            "database": "dcsi", 
+            "includeHeaders": false, 
+            "outputFile": "e:/Import/Oracle/dcsi_tempserialnumber.txt", 
+            "outputFormat": "|", 
+            "query": "select serialnumber from tempserialnumber"
+        }, 
+        "last": {
+            "database": "cis", 
+            "includeHeaders": false, 
+            "outputFile": "e:/Import/Oracle/cis_bi_hist_usage.txt", 
+            "outputFormat": "|", 
+            "query": "select * from bi_hist_usage where BI_REV_YRMO = 201912"
+        }
+    }
+}

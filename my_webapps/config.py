@@ -11,7 +11,8 @@ class Config(object):
     DB_PASSWORD = "example"
 
     IMAGE_UPLOADS = "c:/GH/my_webapps/app/uploads"
-
+    MAX_CONTENT_LENGTH = 50 * 1024 * 1024
+    MAX_IMAGE_FILESIZE = 0.5 * 1024 * 1024
     SESSION_COOKIE_SECURE = True
     FILE_UPLOAD = "c:/GH/my_webapps/app/uploads"
     FILES_ALLOWED = ["TXT", "CSV"]
@@ -27,7 +28,6 @@ class DevelopmentConfig(Config):
     DB_USERNAME = "admin"
     DB_PASSWORD = "example"
 
-    IMAGE_UPLOADS = "c:/GH/my_webapps/app/uploads"
 
     SESSION_COOKIE_SECURE = False
 

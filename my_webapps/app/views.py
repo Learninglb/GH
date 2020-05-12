@@ -22,6 +22,12 @@ def allowed_file(filename):
     else:
         return False
 
+def allowed_image_filesize(filesize):
+
+    if int(filesize) <= app.config["MAX_IMAGE_FILESIZE"]:
+        return True
+    else:
+        return False
 
 @app.route('/jinja')
 def jinja():
@@ -75,20 +81,26 @@ def upload():
     if request.method == "POST":
 
         if request.files:
-            text = request.files['text']
+            if "filesize" in request.cookies:
 
-            if text.filename == "":
-                flash("File must have a name.")
-                return redirect(request.url)
+                if not allowed_image_filesize(request.cookies["filesize"]):
+                    flash("Filesize exceeded maximum limit")
+                    return redirect(request.url)
 
-            if not allowed_file(text.filename):
-                flash("That file extension is not allowed.")
-                return redirect(request.url)
-            else:
-                filename = secure_filename(text.filename)
-                text.save(os.path.join(app.config["FILE_UPLOAD"], filename))
-                flash("File saved.")
-                # ReadAndCreateFromCSV.py(filename)
+                text = request.files['text']
+
+                if text.filename == "":
+                    flash("File must have a name.")
+                    return redirect(request.url)
+
+                if not allowed_file(text.filename):
+                    flash("That file extension is not allowed.")
+                    return redirect(request.url)
+                else:
+                    filename = secure_filename(text.filename)
+                    text.save(os.path.join(app.config["FILE_UPLOAD"], filename))
+                    flash("File saved.")
+                    # ReadAndCreateFromCSV.py(filename)
 
     return render_template('public/upload.html', title='Upload')
 
