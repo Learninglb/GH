@@ -19,6 +19,9 @@
         </div>
 
         <button type="submit" class="btn btn-primary">Upload</button>
+        {% if feedback %}
+        <p class="text-danger float-right">{{ feedback }}</p>
+        {% endif %}
       </form>
     </div>
   </div>

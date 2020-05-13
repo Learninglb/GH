@@ -5,7 +5,7 @@ class Config(object):
     DEBUG = False
     TESTING = False
 
-    SECRET_KEY = os.environ.get('SECRET_KEY') or 'you-might-never-guess'
+    SECRET_KEY = 'GFTdXa8Ixof0rI4wbQiQmQ'
     DB_NAME = "production-db"
     DB_USERNAME = "admin"
     DB_PASSWORD = "example"

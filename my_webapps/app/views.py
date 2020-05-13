@@ -1,7 +1,7 @@
 import os
 from datetime import datetime
 from flask import render_template, flash, request, redirect, jsonify, make_response
-from flask import send_from_directory, abort
+from flask import send_from_directory, abort, session, url_for
 from werkzeug.utils import secure_filename
 from app import app
 
@@ -106,20 +106,24 @@ def upload_csv():
                 if not allowed_file_filesize(request.cookies["filesize"]):
                     flash("Filesize exceeded maximum limit")
                     return redirect(request.url)
+                    #return redirect(request.url)
 
                 text = request.files['text']
 
                 if text.filename == "":
                     flash("File must have a name.")
                     return redirect(request.url)
+                    #return redirect(request.url)
 
                 if not allowed_file(text.filename):
                     flash("That file extension is not allowed.")
                     return redirect(request.url)
+                    #return redirect(request.url)
                 else:
                     filename = secure_filename(text.filename)
                     text.save(os.path.join(app.config["FILE_UPLOAD"], filename))
                     flash("File saved.")
+                    return redirect(request.url)
                     # ReadAndCreateFromCSV.py(filename)
 
     return render_template('public/upload_csv.html', title='Upload CSV')
@@ -133,7 +137,7 @@ def upload_img():
 
                 if not allowed_image_filesize(request.cookies["filesize"]):
                     flash("Image size exceeded maximum limit")
-                    return redirect(request.url)                  
+                    return redirect(request.url)               
 
                 image = request.files['image']
 
@@ -145,6 +149,7 @@ def upload_img():
                     filename = secure_filename(image.filename)
                     image.save(os.path.join(app.config["IMAGE_UPLOAD"], filename))
                     flash("Image saved.")
+                    return redirect(request.url)
                     # ReadAndCreateFromCSV.py(filename)
                 else:
                     flash("That file extension is not allowed.")
@@ -171,8 +176,8 @@ def sign_up():
                 missing.append(k)
 
         if missing:
-            feedback = f"Missing fields for {', '.join(missing)}"
-            return render_template("public/sign_up.html", feedback=feedback)
+            flash("Missing fields")
+            return render_template("public/sign_up.html")
 
         return redirect(request.url)
 
@@ -182,8 +187,15 @@ def sign_up():
 users = {
     "mitsuhiko": {
         "name": "Armin Ronacher",
-        "bio": "Creatof of the Flask framework",
+        "bio": "Creator of the Flask framework",
         "twitter_handle": "@mitsuhiko"
+    },
+    "Lori": {
+        "username": "Lori",
+        "email": "lblasing@flathead.coop",
+        "password": "Flask",
+        "bio": "Creator of fine art",
+        "twitter_handle": "@GargoyleArt"
     },
     "gvanrossum": {
         "name": "Guido Van Rossum",
@@ -196,16 +208,6 @@ users = {
         "twitter_handle": "@elonmusk"
     }
 }
-
-
-@app.route('/profile/<username>')
-def profile(username):
-    user = None
-
-    if username in users:
-        user = users[username]
-    return render_template('public/profile.html', username=username, user=user)
-
 
 @app.route("/json", methods=["POST"])
 def json():
@@ -324,3 +326,39 @@ def cookies():
     res.set_cookie("chewy", "yes")
 
     return res
+
+# login with bad security
+@app.route("/login", methods=["GET", "POST"])
+def login():
+    if request.method == "POST":
+
+        req = request.form
+
+        username = req.get("username")
+        password = req.get("password")
+
+        if not username in users:
+            print("Username not found")
+            return redirect(request.url)
+        else:
+            user = users[username]
+
+        if not password == user["password"]:
+            print("Incorrect password")
+            return redirect(request.url)
+        else:
+            session["USERNAME"] = user["username"]
+            print("session username set")
+            return redirect(request.url)
+            #return redirect(url_for("profile"))
+
+    return render_template("/public/login.html")
+
+    
+@app.route('/profile/<username>')
+def profile(username):
+    user = None
+
+    if username in users:
+        user = users[username]
+    return render_template('public/profile.html', username=username, user=user)
