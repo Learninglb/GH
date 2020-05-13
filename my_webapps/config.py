@@ -10,6 +10,9 @@ class Config(object):
     DB_USERNAME = "admin"
     DB_PASSWORD = "example"
 
+    CLIENT_IMAGES = "c:/GH/my_webapps/app/static/client/img"
+    CLIENT_FILES = "c:/GH/my_webapps/app/static/client/csv"
+    CLIENT_DATS = "c:/GH/my_webapps/app/static/client/dat"
 
     MAX_CONTENT_LENGTH = 50 * 1024 * 1024
     MAX_FILE_FILESIZE = 0.5 * 1024 * 1024

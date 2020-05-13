@@ -262,3 +262,36 @@ def query():
     else:
 
         return "No query string received", 200
+
+@app.route("/get_image/<image_name>")
+def get_image(image_name):
+    try:
+        return send_from_directory(
+            app.config["CLIENT_IMAGES"], filename=image_name, as_attachment=True
+            )
+    except FileNotFoundError:
+        abort(404)
+    
+    return 'Thanks'
+
+@app.route("/get_csv/<filename>")
+def get_csv(filename):
+    try:
+        return send_from_directory(
+            app.config["CLIENT_FILES"], filename=filename, as_attachment=True
+            )
+    except FileNotFoundError:
+        abort(404)
+    
+    return 'Thanks'
+
+@app.route("/get_dat/<path:path>")
+def get_dat(path):
+    try:
+        return send_from_directory(
+            app.config["CLIENT_DAT"], filename=path, as_attachment=True
+            )
+    except FileNotFoundError:
+        abort(404)
+    
+    return 'Thanks'
