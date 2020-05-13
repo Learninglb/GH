@@ -1,7 +1,7 @@
 import os
 from datetime import datetime
 from flask import render_template, flash, request, redirect, jsonify, make_response
-from flask import send_file, safe_join, send_from_directory, abort
+from flask import send_from_directory, abort
 from werkzeug.utils import secure_filename
 from app import app
 
