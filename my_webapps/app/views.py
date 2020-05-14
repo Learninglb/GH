@@ -330,6 +330,7 @@ def cookies():
 # login with bad security
 @app.route("/login", methods=["GET", "POST"])
 def login():
+
     if request.method == "POST":
 
         req = request.form
@@ -338,27 +339,36 @@ def login():
         password = req.get("password")
 
         if not username in users:
-            print("Username not found")
+            flash("Username not found")
             return redirect(request.url)
         else:
             user = users[username]
 
         if not password == user["password"]:
-            print("Incorrect password")
+            flash("Incorrect password")
             return redirect(request.url)
         else:
             session["USERNAME"] = user["username"]
             print("session username set")
-            return redirect(request.url)
-            #return redirect(url_for("profile"))
+            #return redirect(request.url)
+            return redirect(url_for("profile"))
 
     return render_template("/public/login.html")
-
     
-@app.route('/profile/<username>')
-def profile(username):
-    user = None
+@app.route("/profile")
+def profile():
 
-    if username in users:
+    if not session.get("USERNAME") is None:
+        username = session.get("USERNAME")
         user = users[username]
-    return render_template('public/profile.html', username=username, user=user)
+        return render_template("public/profile.html", user=user)
+    else:
+        print("No username found in session")
+        return redirect(url_for("login"))
+
+@app.route("/logout")
+def sign_out():
+
+    session.pop("USERNAME", None)
+
+    return redirect(url_for("index"))

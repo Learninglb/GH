@@ -32,6 +32,10 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
+          {% if session["USERNAME"] %}
+          <li class="nav-item">
+            <a class="nav-link" href="/logout">Log Out<span class="sr-only">(current)</span></a>
+          </li>
           <li class="nav-item">
             <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
           </li>
@@ -51,14 +55,16 @@
           <li class="nav-item">
             <a class="nav-link" href="/guestbook">GuestBook</a>
           </li>
+          {% else %}
           <li class="nav-item">
-            <a class="nav-link" href="/login">Login</a>
+            <a class="nav-link" href="/login">Log In<span class="sr-only">(current)</span></a>
           </li>
+          {% endif %}
+
         </ul>
       </div>
 
       <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav ml-auto">
           <li class="nav-item">
             <a class="nav-link" href="/admin/dashboard">Admin</a>
           </li>
