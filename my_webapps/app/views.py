@@ -9,6 +9,7 @@ from app import app
 @app.route('/')
 @app.route('/index')
 def index():
+
     print(f"Flask ENV is set to: {app.config['ENV']}")
     return render_template('public/index.html', title='Home')
 
@@ -184,7 +185,7 @@ def sign_up():
         if not len(password) >= 10:
             flash("Password must be at least 10 characters", "warning")
             return render_template("public/sign_up.html")
-                    
+
         flash("Account created!", "success")
         
     return render_template("public/sign_up.html")
