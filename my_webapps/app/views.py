@@ -9,7 +9,7 @@ from app import app
 @app.route('/')
 @app.route('/index')
 def index():
-
+    
     print(f"Flask ENV is set to: {app.config['ENV']}")
     return render_template('public/index.html', title='Home')
 
