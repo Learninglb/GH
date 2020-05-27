@@ -176,11 +176,17 @@ def sign_up():
                 missing.append(k)
 
         if missing:
-            flash("Missing fields")
+            flash("Missing fields", "warning")
             return render_template("public/sign_up.html")
 
-        return redirect(request.url)
+        password = req.get("password")
 
+        if not len(password) >= 10:
+            flash("Password must be at least 10 characters", "warning")
+            return render_template("public/sign_up.html")
+                    
+        flash("Account created!", "success")
+        
     return render_template("public/sign_up.html")
 
 
