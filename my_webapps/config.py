@@ -1,7 +1,8 @@
-import os
+''' Configuration'''
 
 
 class Config(object):
+    ''' Configuration '''
     DEBUG = False
     TESTING = False
 
@@ -25,10 +26,12 @@ class Config(object):
     SESSION_COOKIE_SECURE = True
 
 class ProductionConfig(Config):
+    ''' Production '''
     pass
 
 
 class DevelopmentConfig(Config):
+    ''' Development '''
     DEBUG = True
     DB_NAME = "development-db"
     DB_USERNAME = "admin"
@@ -39,6 +42,7 @@ class DevelopmentConfig(Config):
 
 
 class TestingConfig(Config):
+    ''' Testing '''
     TESTING = True
     DB_NAME = "development-db"
     DB_USERNAME = "admin"

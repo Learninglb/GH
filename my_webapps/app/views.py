@@ -1,7 +1,8 @@
+''' Web Flask Tutorial by Julian Nash, YouTube '''
 import os
 from datetime import datetime
 from flask import render_template, flash, request, redirect, jsonify, make_response
-from flask import send_from_directory, abort, session, url_for
+from flask import send_from_directory, session, url_for
 from werkzeug.utils import secure_filename
 from app import app
 
@@ -9,12 +10,13 @@ from app import app
 @app.route('/')
 @app.route('/index')
 def index():
-    
+    ''' Index '''
     print(f"Flask ENV is set to: {app.config['ENV']}")
     return render_template('public/index.html', title='Home')
 
 
 def allowed_file(filename):
+    ''' Verifies that the file type is allowed.'''
     if not "." in filename:
         return False
     ext = filename.rsplit(".", 1)[1]
@@ -25,6 +27,7 @@ def allowed_file(filename):
         return False
 
 def allowed_image(filename):
+    ''' Verifies that the image type is allowed. '''
     if not "." in filename:
         return False
     ext = filename.rsplit(".", 1)[1]
@@ -35,6 +38,7 @@ def allowed_image(filename):
         return False
 
 def allowed_file_filesize(filesize):
+    ''' Verifies the file size is allowed. '''
 
     if int(filesize) <= app.config["MAX_FILE_FILESIZE"]:
         return True
@@ -43,7 +47,7 @@ def allowed_file_filesize(filesize):
 
 
 def allowed_image_filesize(filesize):
-
+    ''' Verifies that the image file size is allowed. '''
     if int(filesize) <= app.config["MAX_IMAGE_FILESIZE"]:
         return True
     else:
@@ -52,6 +56,7 @@ def allowed_image_filesize(filesize):
 
 @app.route('/jinja')
 def jinja():
+    ''' Jinja '''
 
     my_name = "Lori"
     age = 17
@@ -65,15 +70,19 @@ def jinja():
     cool = True
 
     class GitRemote:
+        ''' Working with Git '''
         def __init__(self, name, description, url):
+            ''' Git '''
             self.name = name
             self.description = description
             self.url = url
 
         def pull(self):
+            ''' Git pull '''
             return f"Pulling repo {self.name}"
 
         def clone(self):
+            ''' Git clone '''
             return f"Cloning into {self.url}"
 
     my_remote = GitRemote(
@@ -99,6 +108,7 @@ def jinja():
 
 @app.route('/upload_csv', methods=["GET", "POST"])
 def upload_csv():
+    ''' Uploads csv or text files. '''
     if request.method == "POST":
 
         if request.files:
@@ -131,6 +141,7 @@ def upload_csv():
 
 @app.route('/upload_img', methods=["GET", "POST"])
 def upload_img():
+    ''' Uploads image files. '''
     if request.method == "POST":
 
         if request.files:
@@ -138,9 +149,8 @@ def upload_img():
 
                 if not allowed_image_filesize(request.cookies["filesize"]):
                     flash("Image size exceeded maximum limit")
-                    return redirect(request.url)               
-
-                image = request.files['image']
+                    return redirect(request.url)
+                    image = request.files['image']
 
                 if image.filename == "":
                     flash("File must have a name.")
@@ -161,11 +171,13 @@ def upload_img():
 
 @app.template_filter("clean_date")
 def clean_date(dt):
+    ''' Clean up date. '''
     return dt.strftime("%b %d %Y")
 
 
 @app.route('/sign_up', methods=["GET", "POST"])
 def sign_up():
+    ''' Allows and verifies entries for signing in. '''
     if request.method == "POST":
 
         req = request.form
@@ -187,7 +199,6 @@ def sign_up():
             return render_template("public/sign_up.html")
 
         flash("Account created!", "success")
-        
     return render_template("public/sign_up.html")
 
 
@@ -218,6 +229,7 @@ users = {
 
 @app.route("/json", methods=["POST"])
 def json():
+    ''' Json '''
 
     # Validate the request body contains JSON
     if request.is_json:
@@ -241,11 +253,13 @@ def json():
 
 @app.route("/guestbook")
 def guestbook():
+    ''' Guestbook '''
     return render_template("public/guestbook.html")
 
 
 @app.route("/guestbook/create_entry", methods=["POST"])
 def create_entry():
+    ''' Create a guest book entry. '''
 
     req = request.get_json()
 
@@ -257,6 +271,7 @@ def create_entry():
 
 @app.route("/query")
 def query():
+    ''' Return data from database with a query. '''
     if request.args:
 
         # We have our query string nicely serialized as a Python dictionary
@@ -274,52 +289,52 @@ def query():
 
 @app.route("/get_image/<image_name>")
 def get_image(image_name):
+    ''' Get image files. '''
     try:
         return send_from_directory(
             app.config["CLIENT_IMAGES"], filename=image_name, as_attachment=True
             )
     except FileNotFoundError:
-        abort(404)
-    
+        return render_template("/public/404.html")
     return 'Thanks'
 
 @app.route("/get_csv/<filename>")
 def get_csv(filename):
+    ''' Get csv or text files. '''
     try:
         return send_from_directory(
             app.config["CLIENT_FILES"], filename=filename, as_attachment=True
             )
     except FileNotFoundError:
-        abort(404)
-    
+        return render_template("/public/404.html")
     return 'Thanks'
 
 @app.route("/get_dat/<path:path>")
 def get_dat(path):
+    ''' Get .dat files '''
     try:
         return send_from_directory(
             app.config["CLIENT_DAT"], filename=path, as_attachment=True
             )
     except FileNotFoundError:
-        abort(404)
-    
+        return render_template("/public/404.html")
     return 'Thanks'
 
 # Build and find cookies
 @app.route("/cookies")
 def cookies():
-
+    ''' Set Cookies. '''
     res = make_response("Cookies", 200)
 
     cookies = request.cookies
     flavor = cookies.get("flavor")
     choc_type = cookies.get("chocolate type")
     chewy = cookies.get("chewy")
- 
+
     print(flavor, choc_type, chewy)
 
     res.set_cookie(
-        "flavor", 
+        "flavor",
         value="chocolate chip",
         max_age=10,
         expires=None,
@@ -327,8 +342,7 @@ def cookies():
         domain=None,
         secure=False,
         httponly=False,
-        samesite=None        
-        )
+        samesite=None)
     res.set_cookie("chocolate type", "dark")
     res.set_cookie("chewy", "yes")
 
@@ -337,7 +351,7 @@ def cookies():
 # login with bad security
 @app.route("/login", methods=["GET", "POST"])
 def login():
-
+    ''' Login page with bad security. '''
     if request.method == "POST":
 
         req = request.form
@@ -361,10 +375,9 @@ def login():
             return redirect(url_for("profile"))
 
     return render_template("/public/login.html")
-    
 @app.route("/profile")
 def profile():
-
+    ''' Profile rendering. '''
     if not session.get("USERNAME") is None:
         username = session.get("USERNAME")
         user = users[username]
@@ -375,7 +388,7 @@ def profile():
 
 @app.route("/logout")
 def sign_out():
-
+    ''' Log Out '''
     session.pop("USERNAME", None)
 
     return redirect(url_for("index"))

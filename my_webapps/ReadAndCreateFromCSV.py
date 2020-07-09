@@ -1,23 +1,25 @@
-import pandas as pd
+''' Takes a csv file from metering and
+    breaks it down to generate .dat files
+    needed for import. '''
+
 import csv
-import os
 import glob
 
-First = ['BATCH']
-Second = ['ADD']
-Third = ['PATH']
-Fourth = ['LAKESIDE']
-Fifth = ['All']
-Sixth = ['ALL']
-Seventh = ['ALL']
-Eighth = ['LG']
-Ninth = ['ALL']
+FIRST = ['BATCH']
+SECOND = ['ADD']
+THIRD = ['PATH']
+FOURTH = ['LAKESIDE']
+FIFTH = ['All']
+SIXTH = ['ALL']
+SEVENTH = ['ALL']
+EIGHTH = ['LG']
+NINTH = ['ALL']
 
 
 # Create a list of only the serial number column from csv
-upload_folder = glob.glob("c:/GH/my_webapps/app/static/csv/uploads/*")
+UPLOAD_FOLDER = glob.glob("c:/GH/my_webapps/app/static/csv/uploads/*")
 
-for file in upload_folder:
+for file in UPLOAD_FOLDER:
     data = pd.read_csv(file)
     data.columns = ["Meter_#", "Sec_Meter_#", "Serv_Addr", "Stat", "Meter_Type", "Account",
                     "Serv_Loc_#", "Name", "Service_Use_Type", "AMR_Transponder_ID"]
@@ -26,8 +28,8 @@ for file in upload_folder:
     # create new file
     for value in nbr_list:
         with open('newLines.csv', 'a', newline='') as file:
-            text = First + Second + Third + \
-                [value] + Fourth + Fifth + Sixth + Seventh + Eighth + Ninth
+            text = FIRST + SECOND + THIRD + \
+                [value] + FOURTH + FIFTH + SIXTH + SEVENTH + EIGHTH + NINTH
             writer = csv.writer(file)
             writer.writerow(text)
 
